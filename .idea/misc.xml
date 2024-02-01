@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/configuration/pom.xml" />
+        <option value="$PROJECT_DIR$/jdbc01/pom.xml" />
+        <option value="$PROJECT_DIR$/jdbc/pom.xml" />
+        <option value="$PROJECT_DIR$/jackson/pom.xml" />
+        <option value="$PROJECT_DIR$/ServletLearn/pom.xml" />
+        <option value="$PROJECT_DIR$/01ServletLearn/pom.xml" />
+        <option value="$PROJECT_DIR$/02jackson/pom.xml" />
+        <option value="$PROJECT_DIR$/06spring_security/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatisLearn/pom.xml" />
+        <option value="$PROJECT_DIR$/04mybatisLearn/pom.xml" />
+        <option value="$PROJECT_DIR$/03jdbc/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/configuration/pom.xml" />
+        <option value="$PROJECT_DIR$/jdbc01/pom.xml" />
+      </set>
+    </option>
+    <option name="workspaceImportForciblyTurnedOn" value="true" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="21" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

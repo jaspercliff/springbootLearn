@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jasper.spring_security.mapper.SysRoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.jasper.spring_security.domain.SysRole">
+            <id property="id" column="ID" jdbcType="INTEGER"/>
+            <result property="roleCode" column="ROLE_CODE" jdbcType="VARCHAR"/>
+            <result property="roleName" column="ROLE_NAME" jdbcType="VARCHAR"/>
+            <result property="roleDesc" column="ROLE_DESC" jdbcType="VARCHAR"/>
+            <result property="status" column="STATUS" jdbcType="INTEGER"/>
+            <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR"/>
+            <result property="createdAt" column="CREATED_AT" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR"/>
+            <result property="updatedAt" column="UPDATED_AT" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,ROLE_CODE,ROLE_NAME,
+        ROLE_DESC,STATUS,CREATED_BY,
+        CREATED_AT,UPDATED_BY,UPDATED_AT
+    </sql>
+    <select id="getPerms" resultType="java.lang.String">
+        SELECT group_concat(M.PERMI)
+        FROM sys_menu M
+                 INNER JOIN (
+            SELECT GROUP_CONCAT(FUNC_ID) AS menuIds
+            FROM sys_role_menu_relation R
+            WHERE ROLE_ID IN
+        <foreach collection="roleIds.split(',')" item="roleId" separator="," open="(" close=")">
+            #{roleId}
+        </foreach>
+        ) AS subquery ON FIND_IN_SET(M.ID, subquery.menuIds) > 0
+    </select>
+
+</mapper>

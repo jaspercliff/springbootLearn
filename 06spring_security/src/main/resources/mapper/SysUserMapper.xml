@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jasper.spring_security.mapper.SysUserMapper">
+
+    <resultMap id="BaseResultMap" type="com.jasper.spring_security.domain.SysUser">
+            <id property="id" column="ID" jdbcType="VARCHAR"/>
+            <result property="username" column="USERNAME" jdbcType="VARCHAR"/>
+            <result property="password" column="PASSWORD" jdbcType="VARCHAR"/>
+            <result property="account" column="ACCOUNT" jdbcType="VARCHAR"/>
+            <result property="avatar" column="AVATAR" jdbcType="VARCHAR"/>
+            <result property="jobNo" column="JOB_NO" jdbcType="INTEGER"/>
+            <result property="phone" column="PHONE" jdbcType="VARCHAR"/>
+            <result property="wechat" column="WECHAT" jdbcType="VARCHAR"/>
+            <result property="email" column="EMAIL" jdbcType="VARCHAR"/>
+            <result property="school" column="SCHOOL" jdbcType="VARCHAR"/>
+            <result property="academy" column="ACADEMY" jdbcType="VARCHAR"/>
+            <result property="loginLastTime" column="LOGIN_LAST_TIME" jdbcType="TIMESTAMP"/>
+            <result property="status" column="STATUS" jdbcType="INTEGER"/>
+            <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR"/>
+            <result property="createdAt" column="CREATED_AT" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR"/>
+            <result property="updatedAt" column="UPDATED_AT" jdbcType="TIMESTAMP"/>
+            <result property="roleIds" column="roleIds" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="RoleResultMap" type="com.jasper.spring_security.domain.SysRole">
+        <id property="id" column="ID" jdbcType="INTEGER"/>
+        <result property="roleCode" column="ROLE_CODE" jdbcType="VARCHAR"/>
+        <result property="roleName" column="ROLE_NAME" jdbcType="VARCHAR"/>
+        <result property="roleDesc" column="ROLE_DESC" jdbcType="VARCHAR"/>
+        <result property="status" column="STATUS" jdbcType="INTEGER"/>
+        <result property="createdBy" column="CREATED_BY" jdbcType="VARCHAR"/>
+        <result property="createdAt" column="CREATED_AT" jdbcType="TIMESTAMP"/>
+        <result property="updatedBy" column="UPDATED_BY" jdbcType="VARCHAR"/>
+        <result property="updatedAt" column="UPDATED_AT" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ${alias}ID,${alias}USERNAME,${alias}PASSWORD,
+        ${alias}ACCOUNT,${alias}AVATAR,${alias}JOB_NO,
+        ${alias}PHONE,${alias}WECHAT,${alias}EMAIL,
+        ${alias}SCHOOL,${alias}ACADEMY,${alias}LOGIN_LAST_TIME,
+        ${alias}STATUS,${alias}CREATED_BY,${alias}CREATED_AT,
+        ${alias}UPDATED_BY,${alias}UPDATED_AT
+    </sql>
+    <select id="getUserByUsername" parameterType="string" resultType="com.jasper.spring_security.domain.SysUser">
+        select
+        <include refid="Base_Column_List">
+            <property name="alias" value="U."/>
+        </include>
+        ,group_concat(R.ROLE_ID) roleIds
+        from sys_user U
+        left join sys_role_user_relation R on R.USER_ID= U.ID group by R.USER_ID,U.ID
+    </select>
+</mapper>
