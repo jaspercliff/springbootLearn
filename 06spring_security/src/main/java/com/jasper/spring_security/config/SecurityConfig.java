@@ -1,6 +1,7 @@
 package com.jasper.spring_security.config;
 
 
+import com.jasper.spring_security.filter.JWTAuthorizationFilter;
 import com.jasper.spring_security.service.impl.SysUserDetailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -24,6 +26,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final SysUserDetailServiceImpl sysUserDetailServiceImpl;
+    private final JWTAuthorizationFilter jwtAuthorizationFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -44,6 +47,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+//        将自己写的filter放到UsernamePasswordAuthenticationFilter(验证username and password）之前
+        httpSecurity.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.authorizeHttpRequests(
                 auth -> auth.requestMatchers("/auth/login").permitAll()

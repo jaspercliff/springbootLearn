@@ -5,6 +5,7 @@ import com.jasper.spring_security.domain.SysUser;
 import com.jasper.spring_security.domain.dto.LoginParams;
 import com.jasper.spring_security.mapper.SysUserMapper;
 import com.jasper.spring_security.service.SysUserService;
+import com.jasper.spring_security.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.HashMap;
 
 /**
 * @author 21903
@@ -27,6 +28,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     implements SysUserService{
 
     private final AuthenticationManager authenticationManager;
+    private final JWTUtils jwtUtils;
     @Override
     public String login(LoginParams loginParams) {
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -40,8 +42,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             return "用户名或密码错误";
         }
         SysUser sysUser = (SysUser)authenticate.getPrincipal();
-        log.debug("登录的用户信息为 - {} ", sysUser);
-        return UUID.randomUUID().toString().replaceAll("-", "");
+        if (sysUser == null){
+            return "登录失败";
+        }
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id",sysUser.getId());
+        hashMap.put("username",sysUser.getUsername());
+        hashMap.put("avatar",sysUser.getAvatar());
+        hashMap.put("perms",sysUser.getAuthorities());
+        return JWTUtils.generateToken(hashMap);
+
     }
 }
 
