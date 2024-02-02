@@ -2,7 +2,9 @@ package com.jasper.spring_security.config;
 
 
 import com.jasper.spring_security.filter.JWTAuthorizationFilter;
+import com.jasper.spring_security.service.SysPersistLoginService;
 import com.jasper.spring_security.service.impl.SysUserDetailServiceImpl;
+import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,6 +21,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -25,9 +32,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Slf4j
 @RequiredArgsConstructor
 public class SecurityConfig {
+//    userDetailService
     private final SysUserDetailServiceImpl sysUserDetailServiceImpl;
+//    token filter
     private final JWTAuthorizationFilter jwtAuthorizationFilter;
+//    dynamic authority
     private final RequestAuthorizationManager requestAuthorizationManager;
+//    remember me
+    private final SysPersistLoginService sysPersistLoginServiceImpl;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -57,13 +69,31 @@ public class SecurityConfig {
                         .access(requestAuthorizationManager)
 
         );
+//        remember me
+        httpSecurity.rememberMe(
+                remember->
+                        remember.rememberMeCookieName("rememberMe")
+                                .rememberMeParameter("remember-me").tokenRepository((PersistentTokenRepository)sysPersistLoginServiceImpl)
+        );
+        httpSecurity.formLogin(Customizer.withDefaults());
         return httpSecurity.build();
     }
 
 
 
 
+    @Resource
+    private DataSource dataSource;
 
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository(){
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+        // 设置为true要保障数据库该表不存在，不然会报异常哦
+        // 所以第二次打开服务器应用程序的时候得把它设为false
+        tokenRepository.setCreateTableOnStartup(true);
+        return tokenRepository;
+    }
 
 
 
