@@ -10,3 +10,18 @@
 - 告知security 用户有什么权限 
 - 	Collection<? extends GrantedAuthority> getAuthorities();
 -  后续操作根据token获取用户
+
+### 俩种
+- 基于请求
+- 基于方法
+
+
+## dynamic authority
+- .anyRequest().access()
+- AuthorizationManager interface impl
+- 查询访问该接口需要的权限 然后根据当前认证用户拥有的权限，判断是否包含接口所需权限
+
+### disadvantage
+- 每次请求都要查询数据库
+- 优化：查询所有权限，存入内存，每次请求直接从内存中获取
+- 优化：查询所有权限， 存入redis，每次请求直接从redis中获取

@@ -50,7 +50,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         hashMap.put("username",sysUser.getUsername());
         hashMap.put("avatar",sysUser.getAvatar());
         hashMap.put("perms",sysUser.getAuthorities());
-        return JWTUtils.generateToken(hashMap);
+        return jwtUtils.generateToken(hashMap);
 
     }
 }

@@ -40,7 +40,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             doFilter(request,response,filterChain);
             return;
         }
-        Claims claims = JWTUtils.parseToken(token);
+        Claims claims = jwtUtils.parseToken(token);
 //        获取到用户信息需要将信息告诉springSecurity 来判断是否有权限 Authentication springContext
         String id = claims.get("id", String.class);
         String username = claims.get("username", String.class);

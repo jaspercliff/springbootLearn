@@ -34,14 +34,14 @@ class ApplicationTests {
         map.put("id",1L);
         map.put("username","jasper");
         map.put("perms", Arrays.asList("p1","p2","p3"));
-        String token = JWTUtils.generateToken(map);
+        String token = jwtUtils.generateToken(map);
         System.out.println("token = " + token);
     }
 
     @Test
     public void parseToken(){
-        Claims claims = JWTUtils.parseToken(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtcyI6W3siYXV0aG9yaXR5Ijoic3lzdGVtOnVzZXI6bGlzdCJ9LHsiYXV0aG9yaXR5Ijoic3lzdGVtOm1lbnU6bGlzdCJ9LHsiYXV0aG9yaXR5Ijoic3lzdGVtOnJvbGU6bGlzdCJ9XSwiaWQiOiIxIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTcwNjc3MTc2MiwiZXhwIjoxNzA2NzczNTYyfQ.KzTB7S7_E3ObjrZ6um_dwQDcoT2du8UfogN2PK5jf60"
+        Claims claims = jwtUtils.parseToken(
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtcyI6W3siYXV0aG9yaXR5Ijoic3lzdGVtOnVzZXI6bGlzdCJ9LHsiYXV0aG9yaXR5Ijoic3lzdGVtOm1lbnU6bGlzdCJ9XSwiaWQiOiIxIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTcwNjc4MjkwOSwiZXhwIjoxNzA2Nzg0NzA5fQ.v10YbzzYqoi0mEEsXdDVNb8CQQz_62MY7g5hQwZ4bdY"
         );
         System.out.println("claims = " + claims);
     }

@@ -27,6 +27,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final SysUserDetailServiceImpl sysUserDetailServiceImpl;
     private final JWTAuthorizationFilter jwtAuthorizationFilter;
+    private final RequestAuthorizationManager requestAuthorizationManager;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -52,7 +53,9 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.authorizeHttpRequests(
                 auth -> auth.requestMatchers("/auth/login").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest()
+                        .access(requestAuthorizationManager)
+
         );
         return httpSecurity.build();
     }
