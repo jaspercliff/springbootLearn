@@ -41,7 +41,7 @@ class ApplicationTests {
     @Test
     public void parseToken(){
         Claims claims = jwtUtils.parseToken(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtcyI6W3siYXV0aG9yaXR5Ijoic3lzdGVtOnVzZXI6bGlzdCJ9LHsiYXV0aG9yaXR5Ijoic3lzdGVtOm1lbnU6bGlzdCJ9XSwiaWQiOiIxIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTcwNjc4MjkwOSwiZXhwIjoxNzA2Nzg0NzA5fQ.v10YbzzYqoi0mEEsXdDVNb8CQQz_62MY7g5hQwZ4bdY"
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJtcyI6W3siYXV0aG9yaXR5Ijoic3lzdGVtOnVzZXI6bGlzdCJ9LHsiYXV0aG9yaXR5Ijoic3lzdGVtOm1lbnU6bGlzdCJ9XSwiaWQiOiIxIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTcwNjg2MzgwNiwiZXhwIjoxNzA2ODY1NjA2fQ.ovek4pTsHNDJ56JlkZ27_ShTavxj5vB_mfCitM1wyYQ"
         );
         System.out.println("claims = " + claims);
     }
