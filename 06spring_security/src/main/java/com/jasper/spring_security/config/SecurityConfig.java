@@ -22,6 +22,20 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+
+
+
+/**
+ * {@link org.springframework.security.config.annotation.web.configuration.EnableWebSecurity}
+ * publish  ss default filter chain({@link org.springframework.security.web.SecurityFilterChain}) as a bean 。
+ * publish a {@link org.springframework.security.core.userdetails.UserDetailsService} as a bean。
+ * publish a {@link org.springframework.security.authentication.AuthenticationEventPublisher} as a bean for publish authentication events.
+ * 当用户成功/失败进行身份验证时，可以调用这个类中的方法来通知系统
+ *
+ */
+
+
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
