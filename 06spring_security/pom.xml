@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.jasper</groupId>
-    <artifactId>spring_security</artifactId>
+    <artifactId>06spring_security</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>06spring_security</name>
     <description>06spring_security</description>

@@ -6,9 +6,11 @@
     <file url="file://$PROJECT_DIR$/02jackson/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/02jackson/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/03jdbc/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/03jdbc/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/04mybatisLearn/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/04mybatisLearn/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/06spring_security/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/06spring_security/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jdbc01/src/main/java" charset="UTF-8" />
   </component>
 </project>
